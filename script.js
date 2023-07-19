@@ -4,8 +4,8 @@ const ctx = canvas.getContext('2d');
 const g = 9.81; // gravitational constant
 const arm1Length = 100;
 const arm2Length = 100;
-const mass1 = 10;
-const mass2 = 10;
+const mass1 = 1;
+const mass2 = 2;
 
 // Variables to track angles and angular velocities
 let angle1 = Math.PI / 2;

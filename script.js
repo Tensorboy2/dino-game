@@ -87,5 +87,30 @@ function animatePendulum() {
   requestAnimationFrame(animatePendulum);
 }
 
+
+// Function to draw the double pendulum on the canvas for each pendulum
+function drawPendulum() {
+  pendulumCtx.clearRect(0, 0, pendulumCanvas.width, pendulumCanvas.height);
+
+  for (let i = 0; i < numPendulums; i++) {
+    const pendulum = pendulums[i];
+    const x1 = pendulumCanvas.width / 2 + arm1Length * Math.sin(pendulum.angle1);
+    const y1 = pendulumCanvas.height / 3 + arm1Length * Math.cos(pendulum.angle1);
+    const x2 = x1 + arm2Length * Math.sin(pendulum.angle2);
+    const y2 = y1 + arm2Length * Math.cos(pendulum.angle2);
+
+    pendulumCtx.strokeStyle = pendulum.tracerColor;
+    pendulumCtx.beginPath();
+    pendulumCtx.moveTo(pendulumCanvas.width / 2, pendulumCanvas.height / 3);
+    pendulumCtx.lineTo(x2, y2);
+    pendulumCtx.stroke();
+
+    pendulumCtx.fillStyle = pendulum.tracerColor;
+    pendulumCtx.beginPath();
+    pendulumCtx.arc(x2, y2, 1.5, 0, 2 * Math.PI);
+    pendulumCtx.fill();
+  }
+}
+
 // Start the animation
 animatePendulum();

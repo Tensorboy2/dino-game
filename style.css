@@ -1,32 +1,25 @@
 /* ... (existing styles) ... */
 
-/* Style for the figure with a caption */
-figure {
-    margin: 20px 0;
+header, footer {
     text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
   }
   
-  /* Draw horizontal lines */
-  hr {
-    border: 0;
-    height: 1px;
-    background-color: #ccc;
-    margin: 20px 0;
+  main {
+    margin: 20px;
   }
   
-  /* Additional styling for the images */
-  img {
-    max-width: 100%;
+  section {
+    margin-bottom: 40px;
+  }
+  
+  canvas {
+    border: 1px solid #ccc;
+    display: block;
+    margin: 0 auto;
     border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Style for the background layer */
-  .background-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
   }
   
   /* ... (existing styles) ... */

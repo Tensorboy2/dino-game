@@ -1,31 +1,36 @@
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const dino = document.getElementById('dino');
+let isJumping = false;
+let gravity = 0.9;
+let position = 0;
 
-const width = canvas.width;
-const height = canvas.height;
-
-const numRectangles = 100;
-const dx = width / numRectangles;
-const scaleFactor = 0.005;
-
-function gaussian(x) {
-  return Math.exp(-x * x);
+function jump() {
+    if (isJumping) return;
+    isJumping = true;
+    let count = 0;
+    const jumpInterval = setInterval(() => {
+        const jumpHeight = 150;
+        if (count === jumpHeight) {
+            clearInterval(jumpInterval);
+            let downInterval = setInterval(() => {
+                if (count === 0) {
+                    clearInterval(downInterval);
+                    isJumping = false;
+                }
+                position -= 5;
+                count--;
+                position = Math.max(position, 0);
+                dino.style.bottom = position + 'px';
+            }, 20);
+        }
+        position += 5;
+        count++;
+        position = Math.min(position, jumpHeight);
+        dino.style.bottom = position + 'px';
+    }, 20);
 }
 
-function drawRectangles() {
-  ctx.clearRect(0, 0, width, height);
-
-  for (let i = 0; i < numRectangles; i++) {
-    const x = i * dx;
-    const y = gaussian(x);
-    const height = y * scaleFactor * width;
-
-    ctx.fillStyle = 'rgba(70, 130, 180, 0.8)';
-    ctx.fillRect(x, height, dx, height);
-  }
-
-  requestAnimationFrame(drawRectangles);
-}
-
-// Start the animation
-drawRectangles();
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        jump();
+    }
+});

@@ -157,6 +157,23 @@ function update() {
     requestAnimationFrame(update);
 }
 
+function handleJump() {
+  if (!isJumping) {
+      jump();
+  }
+}
+
+// Listen for space key press to make the dinosaur jump (desktop)
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'Space' && !isJumping) {
+      handleJump();
+  }
+});
+
+// Listen for touch or click events to make the dinosaur jump (mobile)
+document.addEventListener('touchstart', handleJump);
+document.addEventListener('click', handleJump);
+
 // Listen for space key press to make the dinosaur jump
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space' && !isJumping) {

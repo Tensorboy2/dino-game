@@ -68,9 +68,49 @@ function drawScore() {
     ctx.fillText('Score: ' + score, 10, 30);
 }
 
+let highscores = [];
+
+function loadHighscores() {
+    const savedHighscores = localStorage.getItem('highscores');
+    highscores = savedHighscores ? JSON.parse(savedHighscores) : [];
+}
+
+function saveHighscores() {
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+}
+
+function showHighscores() {
+    const highscoreList = document.getElementById('highscore-list');
+    highscoreList.innerHTML = '';
+
+    for (const score of highscores) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${score.name}: ${score.score}`;
+        highscoreList.appendChild(listItem);
+    }
+}
+
+function gameOver() {
+  isGameOver = true;
+
+  const playerName = prompt('Game Over! Enter your name:');
+  if (playerName) {
+      highscores.push({ name: playerName, score });
+      highscores.sort((a, b) => b.score - a.score);
+      highscores = highscores.slice(0, 5); // Keep only the top 5 highscores
+      saveHighscores();
+      showHighscores();
+  }
+}
+
 function update() {
+
+    // Check for collisions
+    checkCollisions();
+
+    // Game over condition
     if (isGameOver) {
-        alert('Game Over! Your score: ' + score + '. Refresh the page to play again.');
+      gameOver();
         return;
     }
 
@@ -123,6 +163,10 @@ document.addEventListener('keydown', (event) => {
         jump();
     }
 });
+
+// Load highscores when the game starts
+loadHighscores();
+showHighscores();
 
 // Start the game loop
 update();
